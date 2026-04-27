@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  images: {
-    unoptimized: true, // <-- Включите это
-  },
+//   images: {
+//     unoptimized: true, // <-- Включите это
+//   },
 };
 
 export default nextConfig;
