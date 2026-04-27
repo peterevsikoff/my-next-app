@@ -25,19 +25,19 @@ const fakeApiCall = () => {
 
 // Worker Saga: выполняет асинхронную задачу
 function* handleIncrementAsync() {
-  try {
-    // Вызываем API (имитация)
-    yield call(fakeApiCall);
-    // или просто задержка
-    yield delay(1000);
-    
-    // Диспатчим действие об успехе
-    yield put(incrementSuccess());
-    // Диспатчим инкремент
-    yield put({ type: 'INCREMENT' });
-  } catch (error) {
-    console.error('Saga error:', error);
-  }
+    try {
+        // Вызываем API (имитация)
+        yield call(fakeApiCall);
+        // или просто задержка
+        yield delay(1000);
+        
+        // Диспатчим действие об успехе
+        yield put(incrementSuccess());
+        // Диспатчим инкремент
+        yield put({ type: 'INCREMENT' });
+    } catch (error) {
+        console.error('Saga error:', error);
+    }
 }
 
 // Watcher Saga: следит за действием INCREMENT_ASYNC

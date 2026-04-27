@@ -3,6 +3,7 @@ import { Roboto_Flex  } from "next/font/google";
 import "./globals.scss";
 import { Header } from "@/components/layout/Header";
 import StoreProvider from "@/components/StoreProvider/StoreProvider";
+import { ReactNode } from "react";
 
 //загружаем шрифт сначала, чтобы использовать через свою переменную
 const robotoFlex = Roboto_Flex ({ 
@@ -12,7 +13,7 @@ const robotoFlex = Roboto_Flex ({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://my-next-app-omega.vercel.app'),
+    metadataBase: new URL("https://my-next-app-omega.vercel.app"),
     title: {
         default: "My App",           // заголовок по умолчанию
         template: "%s | My App",     // шаблон: "О нас | My App"
@@ -20,14 +21,14 @@ export const metadata: Metadata = {
     description: "Современное приложение на Next.js",
     keywords: ["nextjs", "react", "typescript"],
     authors: [{ name: "My Team" }],
-    openGraph: {
+    openGraph: { // Facebook, LinkedIn, Telegram, Viber, WhatsApp
         title: "My App",
         description: "Современное приложение на Next.js",
-        url: "https://myapp.com",
+        url: "https://my-next-app-omega.vercel.app",
         siteName: "My App",
         images: [
         {
-            url: "/og-image.png",
+            url: "/og-image.png",//папка public
             width: 1200,
             height: 630,
             alt: "My App Preview",
@@ -49,14 +50,14 @@ export const metadata: Metadata = {
         icon: "/favicon.ico",
         apple: "/apple-icon.png",
     },
-    // manifest: "/manifest.json",  // для PWA
+    manifest: "/manifest.json",  // для PWA //папка public
 };
 
 //Default export с function declaration (стандарт Next.js)
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html lang="ru">
-            <body className={`${robotoFlex.className}`}>
+            <body className={robotoFlex.className}>
                 <StoreProvider>
                     <Header />
                     <main>
