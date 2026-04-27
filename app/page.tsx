@@ -6,7 +6,7 @@ export default function Home() {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-8">Redux + Saga Demo</h1>
       <Image
-        src="/images/cat.jfif"
+        src="/images/cat.jpg"
         alt="Hero background"
         width={400}
         height={200}
