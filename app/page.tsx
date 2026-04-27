@@ -11,7 +11,7 @@ export default function Home() {
         width={400}
         height={200}
         // fill
-        className="object-cover"
+        // className="object-cover"
         priority  // для LCP изображений
       />
       <Counter />
