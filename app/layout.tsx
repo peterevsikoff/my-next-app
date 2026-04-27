@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         follow: true,     // разрешить следовать по ссылкам
     },
     icons: {
-        icon: "/favicon.ico",
+        icon: "/icons/favicon.ico",
         apple: "/apple-icon.png",
     },
     manifest: "/manifest.json",  // для PWA //папка public

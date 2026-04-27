@@ -8,11 +8,10 @@ export default function Home() {
       <Image
         src="/images/cat.jpg"
         alt="Hero background"
-        width={400}
-        height={200}
-        // fill
-        // className="object-cover"
-        priority  // для LCP изображений
+        width={200}
+        height={300}
+        preload
+        loading="eager"
       />
       <Counter />
     </div>
