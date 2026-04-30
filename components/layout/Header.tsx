@@ -1,76 +1,53 @@
-'use client'; // Клиентский компонент (нужен для интерактивности)
+'use client';
 
+import { PAGES, ROLES } from '@/types/enums';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import "./header.scss";
+import clsx from 'clsx';
+import { Burger } from '@components';
+
 
 const Header = () => {
     const pathname = usePathname();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [show, setShow] = useState(false);
 
-    const navigation = [
-        { name: 'Главная', href: '/' },
-        { name: 'О нас', href: '/about' },
-        { name: 'Контакты', href: '/contact' },
+    const navConfig = [
+        { id: "", roles: [undefined, ROLES.USER, ROLES.PRO, ROLES.ADMIN], name: "Главная" },
+        { id: PAGES.TESTS, roles: [undefined, ROLES.USER, ROLES.PRO, ROLES.ADMIN], name: "Тесты" },
+        { id: PAGES.ABOUT, roles: [undefined, ROLES.USER, ROLES.PRO, ROLES.ADMIN], name: "О нас" },
+        { id: PAGES.USERS, roles: [ROLES.ADMIN], name: "Пользователи" },
     ];
 
+    const user = {role: ROLES.ADMIN};
+
     return (
-        <header className="bg-white shadow-md sticky top-0 z-50">
-        <nav className="container mx-auto px-4 py-4">
-            <div className="flex justify-between items-center">
-            {/* Логотип */}
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-                MyApp
-            </Link>
-
-            {/* Десктопное меню */}
-            <div className="hidden md:flex space-x-8">
-                {navigation.map((item) => (
-                <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`transition-colors ${
-                    pathname === item.href
-                        ? 'text-blue-600 font-semibold'
-                        : 'text-gray-600 hover:text-blue-600'
-                    }`}
-                >
-                    {item.name}
-                </Link>
-                ))}
+        <header className={clsx("header", {"header-active": show})}>
+            <div className="container">
+                <div className="section-tile">
+                    <div className="header-wrap">
+                        <div className="logo">
+                            {/* <Slogan/> */}
+                        </div>
+                        <div className={clsx("header-right-side", {"nav-active": show})} onClick={() => {if(show) setShow(false)}}>
+                            <nav className="navigation">
+                                {
+                                    navConfig.map(({id, name, roles}) => {
+                                        const path = `/${id}`;
+                                        return(roles.includes(user?.role) &&
+                                            <Link key={id} id={id} href={path} className={clsx({"a-active": pathname === path})}>{name}</Link>)
+                                    })
+                                }
+                            </nav>
+                            {/* <User/> */}
+                        </div>
+                        <button className={clsx("btn-burger", {"btn-burger-active": show})} onClick={() => setShow(!show)}>
+                            <Burger/>
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            {/* Мобильное меню (бургер) */}
-            <button
-                className="md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            </div>
-
-            {/* Мобильное выпадающее меню */}
-            {isMenuOpen && (
-            <div className="md:hidden mt-4 space-y-2">
-                {navigation.map((item) => (
-                <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`block py-2 ${
-                    pathname === item.href
-                        ? 'text-blue-600 font-semibold'
-                        : 'text-gray-600'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                >
-                    {item.name}
-                </Link>
-                ))}
-            </div>
-            )}
-        </nav>
         </header>
     );
 }
